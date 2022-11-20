@@ -1,0 +1,18 @@
+{
+    "certificate1": {
+        "name": "TEFL (Teaching English as a Foreign Language) certificate",
+        "status": "Completed",
+        "year":"2021"
+    },
+    "certificate2": {
+        "name" :  "Web and Computer Programming Certificate",
+        "status":"Completed",
+        "year":"2022"
+    },
+    "certificate3" : {
+        "name" : "Web Development",
+        "status":"In-Progress",
+        "year":"2023"
+
+    }
+}

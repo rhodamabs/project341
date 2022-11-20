@@ -1,0 +1,51 @@
+{
+    "course1": {
+        "code":"CSE 340",
+        "name": "Web Backend Development I",
+        "semester": "Fall",
+        "year": "2022",
+        "status":"In progress"
+    },
+    "course2": {
+        "code":"CSE 341",
+        "name": "Web Backend Development II",
+        "semester": "Fall",
+        "year": "2022",
+        "status":"In progress"
+    },
+   "course3": {
+        "code": "CIT 225",
+        "name": "Database Design & Development",
+        "semester": "Spring",
+        "year": "2022",
+        "status":"Completed"
+    },
+    "course4": {
+        "code":"CSE 121B",
+        "name": "JavaScript Language",
+        "semester": "Spring ",
+        "year": "2022",
+        "status":"Completed"
+    },
+    "course5": {
+        "code": "CSE 110",
+        "name": "Programming Building Blocks",
+        "semester": "Fall",
+        "year": "2021",
+        "status":"Completed"
+    },
+    "course6": {
+        "code": "CSE 210",
+        "name": "Web Backend Development I",
+        "semester": "Spring",
+        "year": "2022",
+        "status":"Completed"
+    },
+    "course7": {
+        "code":"CSE 111",
+        "name": "Programming with Functions",
+        "semester": "Winter",
+        "year": "2022",
+        "status":"Completed"
+    }
+}

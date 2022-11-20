@@ -1,0 +1,51 @@
+
+// Localhost
+get http://localhost:5000/courses
+###
+get http://localhost:5000/courses/63797558f65f57d78b13603b HTTP/1.1
+
+
+###
+post http://localhost:5000/courses HTTP/1.1
+content-type: application/json
+
+{
+  "code":"CSE 340",
+        "name": "Web Backend Development I",
+        "semester": "Fall",
+        "year": 2022,
+        "status":"In progress"
+}
+###
+
+put http://localhost:8080/contacts/ HTTP/1.1
+
+###
+delete http://localhost:8080/contacts/ HTTP/1.1
+
+// render
+
+###
+get https://mabundur341-project.onrender.com/contacts HTTP/1.1
+
+###
+get https://mabundur341-project.onrender.com/contacts/6378191bd909416a9798b4e8 HTTP/1.1
+
+
+###
+post https://mabundur341-project.onrender.com/contacts HTTP/1.1
+content-type: application/json
+
+{
+
+}
+###
+put https://mabundur341-project.onrender.com/contacts/ HTTP/1.1
+content-type: application/json
+
+{
+
+}
+
+###
+delete https://mabundur341-project.onrender.com/contacts/ HTTP/1.1
