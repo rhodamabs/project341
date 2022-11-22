@@ -8,14 +8,17 @@ const createCertificate = async(req, res) => {
     res.status(400).send({ message: 'Content can not be empty!' });
     return;
   }
-
   try{
     const certificate = {
       name: req.body.name,
       status: req.body.status,
       year: req.body.year
     };
-    const response = await mongodb.getDb().db('project341').collection('certificates').insertOne(certificate);
+    const response = await mongodb
+    .getDb()
+    .db('project341')
+    .collection('certificates')
+    .insertOne(certificate);
     if (response.acknowledged) {
       res.status(201).json(response);
     } else {
@@ -29,35 +32,81 @@ const createCertificate = async(req, res) => {
 const getCertificates = async (req, res, next) => {
 // #swagger.tags = ['Certificates']
 
-    try{
-      const result = await mongodb.getDb().db('project341').collection('certificates').find();
-      result.toArray().then((lists) => {
+     mongodb.getDb()
+     .db('project341')
+     .collection('certificates')
+     .find()
+     .toArray((err, lists) => {
+        if (err) {
+          res.status(400).json({ message: err });
+        }
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(lists);
       });
-    }catch (err){
-      res.status(500).json({message: err.message});
-    }
-    };
+  };
     
 
   const getCertificate = async (req, res, next) => {
 // #swagger.tags = ['Certificates']
 
-    try{
-      const certificateId = new ObjectId(req.params.id);
-      const result = await mongodb
+  if (!ObjectId(req.params.id));{
+        res.status(400).json( 'Must use a valid certificateId to find a certificate.' );
+      }
+      const certificateId = mongodb
+      .getDb().db('project341')
+      .collection('certificates')
+      .find({_id: certificateId} )
+      .toArray((err, result) => {
+        if (err) {
+          res.status(400).json({ message: err });
+        }
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json(result[0]);
+      });
+  };
+    
+
+    const updateCertificate = async (req, res, next) => {
+    // #swagger.tags = ['Certificates']
+    if (!ObjectId(req.params.id));{
+      res.status(400).json( 'Must use a valid certificateId to update a certificate.');
+    }
+ 
+        const certificateId = new ObjectId(req.params.id);
+        const certificate = {
+          name: req.body.name,
+          status: req.body.status,
+          year: req.body.year
+        };
+        const response = await mongodb
         .getDb()
         .db('project341')
-        .collection('certificates')
-        .find({ _id: certificateId });
-      result.toArray().then((lists) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(lists[0]);
-      });
-    }catch (err){
-      res.status(500).json({message: err.message});
+        .collection('modules')
+        .replaceOne({ _id: certificateId }, certificate);
+      console.log(response);
+      if (response.modifiedCount > 0) {
+        res.status(204).send();
+      } else {
+        res.status(500).json(response.error || 'Some error occurred while updating the contact.');
+      }
+    }; 
+  
+    const deleteCertificate = async (req, res, next) => {
+     // #swagger.tags = ['Certificates']
+     if (!ObjectId(req.params.id));{
+      res.status(400).json( 'Must use a valid certificateId to delete the certificate.');
     }
-    };
-   
- module.exports =  {createCertificate, getCertificate,getCertificates } 
+      const certificateId = new ObjectId(req.params.id);
+      const response = await mongodb
+      .getDb().db('project341')
+      .collection('modules')
+      .remove({ _id: certificateId }, true);
+      console.log(response);
+      if (response.deletedCount > 0) {
+        res.status(200).send();
+      } else {
+        res.status(500).json(response.error || 'Some error occurred while deleting the contact.');
+      }
+      };
+  
+ module.exports =  {createCertificate, getCertificate,getCertificates,updateCertificate,deleteCertificate } 

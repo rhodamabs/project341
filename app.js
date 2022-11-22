@@ -25,23 +25,10 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
-
-app.use((req, res, next) => {
-  const error = new Error('Not Found');
-  error.status = 404;
-  next(error);
+process.on('uncaughtException', (err, origin) => {
+  console.log(process.stderr.fd, `Caught exception: ${err}\n` + `Exception origin: ${origin}`);
 });
 
-app.use((error, req, res, next) => {
-  res.status(error.status || 500);
-  res.json({
-    error: {
-      message: error.message
-    }
-  });
-});
 
 mongodb.initDb((err,mongodb) =>{
  if(err) {

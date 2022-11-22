@@ -1,8 +1,8 @@
 
-// Localhost
+// Localhost courses
 get http://localhost:5000/courses
 ###
-get http://localhost:5000/courses/63797558f65f57d78b13603b HTTP/1.1
+get http://localhost:5000/courses/63797558f65f57d78b13603c HTTP/1.1
 
 
 ###
@@ -18,34 +18,110 @@ content-type: application/json
 }
 ###
 
-put http://localhost:8080/contacts/ HTTP/1.1
-
-###
-delete http://localhost:8080/contacts/ HTTP/1.1
-
-// render
-
-###
-get https://mabundur341-project.onrender.com/contacts HTTP/1.1
-
-###
-get https://mabundur341-project.onrender.com/contacts/6378191bd909416a9798b4e8 HTTP/1.1
-
-
-###
-post https://mabundur341-project.onrender.com/contacts HTTP/1.1
+put http://localhost:5000/courses/63797558f65f57d78b13603c HTTP/1.
 content-type: application/json
 
 {
-
+  "code":"CSE 340",
+        "name": "Web Backend Development I",
+        "semester": "Fall",
+        "year": 2022,
+        "status":"In progress"
 }
+
 ###
-put https://mabundur341-project.onrender.com/contacts/ HTTP/1.1
+delete http://localhost:5000/courses/63797558f65f57d78b13603b HTTP/1.1
+
+
+###
+//Localhost Certificates
+get http://localhost:5000/courses
+###
+get http://localhost:5000/courses/63797558f65f57d78b13603b HTTP/1.1
+
+
+###
+post http://localhost:5000/courses HTTP/1.1
 content-type: application/json
 
 {
+   "name" :  "Web and Computer Programming Certificate",
+        "status":"Completed",
+        "year":"2022"
+}
+###
 
+put http://localhost:5000/courses HTTP/1.
+content-type: application/json
+
+{
+   "name" :  "Web and Computer Programming Certificate",
+        "status":"Completed",
+        "year":"2022"
 }
 
 ###
-delete https://mabundur341-project.onrender.com/contacts/ HTTP/1.1
+delete http://localhost:5000/courses/63797558f65f57d78b13603b HTTP/1.1
+
+
+// render Courses
+
+###
+get https://rhodamabs341.onrender.com/courses HTTP/1.1
+
+###
+get https://rhodamabs341.onrender.com/courses/63797558f65f57d78b13603a HTTP/1.1
+
+
+###
+post https://rhodamabs341.onrender.com/courses HTTP/1.1
+content-type: application/json
+
+{
+   "name" :  "Web and Computer Programming Certificate",
+        "status":"Completed",
+        "year":"2022"
+}
+###
+put https://rhodamabs341.onrender.com/courses HTTP/1.1
+content-type: application/json
+
+{
+   "name" :  "Web and Computer Programming Certificate",
+        "status":"Completed",
+        "year":"2022"
+}
+
+###
+delete https://rhodamabs341.onrender.com/courses/63797558f65f57d78b13603a HTTP/1.1
+
+
+// render Certificates
+###
+get https://rhodamabs341.onrender.com/certificates HTTP/1.1
+
+###
+get https://rhodamabs341.onrender.com/certificates/63797571f65f57d78b136043 HTTP/1.1
+
+
+###
+post https://rhodamabs341.onrender.com/certificates HTTP/1.1
+content-type: application/json
+
+{
+   "name" :  "Web and Computer Programming Certificate",
+        "status":"Completed",
+        "year":"2022"
+}
+###
+put https://rhodamabs341.onrender.com/certificates/63797571f65f57d78b136045 HTTP/1.1
+content-type: application/json
+
+{
+  "name" :  "Web and Computer Programming Certificate",
+        "status":"Completed",
+        "year":"2022"
+}
+
+###
+delete https://rhodamabs341.onrender.com/certificates/63797571f65f57d78b136043 HTTP/1.1
