@@ -49,7 +49,7 @@ const getCertificates = async (req, res, next) => {
   const getCertificate = async (req, res, next) => {
 // #swagger.tags = ['Certificates']
 
-  if (!ObjectId(req.params.id));{
+  if (!ObjectId(req.params.id)){
         res.status(400).json( 'Must use a valid certificateId to find a certificate.' );
       }
       const certificateId = mongodb

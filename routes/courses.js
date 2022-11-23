@@ -6,12 +6,12 @@ const coursesController = require('../controllers/courses');
 
 router.get('/', coursesController.getCourses);
 
-router.get('/:courseId', coursesController.getCourse);
+router.get('/:id', coursesController.getCourse);
 
 router.post('/', validation.saveCourse, coursesController.createCourse);
 
-router.put('/:courseId', validation.saveCourse, coursesController.updateCourse);
+router.put('/:id', validation.saveCourse, coursesController.updateCourse);
 
-router.delete('/:courseId', coursesController.deleteCourse);
+router.delete('/:id', coursesController.deleteCourse);
 
 module.exports = router;

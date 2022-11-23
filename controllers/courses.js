@@ -49,26 +49,30 @@ const getCourses = async (req, res, next) => {
 
   const getCourse = async (req, res, next) => {
   // #swagger.tags = ['Courses']
-  if (!ObjectId(req.params.id));{
+  const value =  req.params.id;
+  if (!ObjectId(req.params.id)){
     res.status(400).json( 'Must use a valid courseId to find a course.' );
   }
-   const courseId=  mongodb
+ await mongodb
         .getDb()
         .db('project341')
         .collection('modules')
-        .find({_id: courseId} )
+        .find({_id: value})
         .toArray((err, result) => {
+        
           if (err) {
             res.status(400).json({ message: err });
           }
+          console.log(result);
           res.setHeader('Content-Type', 'application/json');
           res.status(200).json(result[0]);
-      });
+          res.send(result[0]);
+      }); 
     };
 
 const updateCourse = async (req, res, next) => {
     // #swagger.tags = ['Courses']
-    if (!ObjectId(req.params.id));{
+    if (!ObjectId(req.params.id)){
       res.status(400).json( 'Must use a valid courseId to update a course.');
     }
       const courseId = new ObjectId.isValid(req.params.id);
@@ -83,7 +87,7 @@ const updateCourse = async (req, res, next) => {
       .getDb()
       .db('project341')
       .collection('modules')
-      .replaceOne({ _id: courseId }, course);
+      .replaceOne({ _id: req.params.id }, course);
       console.log(response);
       if (response.modifiedCount > 0) {
         res.status(204).send();
@@ -94,14 +98,14 @@ const updateCourse = async (req, res, next) => {
 
   const deleteCourse = async (req, res, next) => {
     // #swagger.tags = ['Courses']
-    if (!ObjectId(req.params.id));{
+    if (!ObjectId(req.params.id)){
       res.status(400).json( 'Must use a valid courseId to delete a certificate.');
     }
     const courseId = new ObjectId.isValid(req.params.id);
     const response = await mongodb
     .getDb().db('project341')
     .collection('modules')
-    .remove({ _id: courseId }, true);
+    .remove({ _id: req.params.id }, true);
     console.log(response);
     if (response.deletedCount > 0) {
       res.status(200).send();
