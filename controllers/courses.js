@@ -1,117 +1,116 @@
-const mongodb = require('../db/connect');
-  const ObjectId = require('mongodb').ObjectId;
+const db = require('../models/courses');
+const Course = db.course;
 
-const createCourse = async(req, res) => {
+const createCourse = async(req, res,) => {
      // #swagger.tags = ['Courses']
-  // Validate request
-  if (!req.body.code || !req.body.name || !req.body.semester || !req.body.year || !req.body.status) {
-    res.status(400).send({ message: 'Content can not be empty!' });
-    return;
-  }
+ 
+  
   try{
-    const course = {
-      code: req.body.code,
-      name: req.body.name,
-      semester: req.body.semester,
-      year: req.body.year,
-      status: req.body.status
-    };
-    const response = await mongodb
-    .getDb()
-    .db('project341')
-    .collection('modules')
-    .insertOne(course);
-    if (response.acknowledged) {
-      res.status(201).json(response);
-    } else {
-      res.status(500).json(response.error || 'Some error occurred while creating the contact.');
-    }  
-}catch (err){
-  res.status(500).json({message: err.message});
+     // Validate request
+    if (!req.body.code || !req.body.name || !req.body.semester || !req.body.year || !req.body.status) {
+      res.status(400).send({ message: 'Content can not be empty!' });
+      return;
+    }
+    const code = req.body.code;
+    const name = req.body.name;
+    const semester = req.body.semester;
+    const year = req.body.year;
+    const status = req.body.status;
+    const course = new Course(req.body);
+    course.save()
+    .then((data) => {
+      console.log(data);
+      res.status(201).send(data);
+    })
+    .catch((err)=>{
+   res.status(500).send({
+    message: err.message || 'Some error occurred while creating the Course.'
+      });
+  });
+} catch (err){
+  res.status(500).json(err);
 }
 };
 
-const getCourses = async (req, res, next) => {
-    // #swagger.tags = ['Courses']
-       mongodb.getDb()
-       .db('project341')
-       .collection('modules')
-       .find()
-       .toArray((err, lists) => {
-        if (err) {
-          res.status(400).json({ message: err });
-        }
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json(lists);
+const getCourses = getAll = (req, res) => {
+      // #swagger.tags = ['Courses']
+  try {
+    Course.find({})
+      .then((data) => {
+        res.status(200).send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || 'Some error occurred while retrieving users.'
+        });
       });
-    };
-    
-
-  const getCourse = async (req, res, next) => {
-  // #swagger.tags = ['Courses']
-  const value =  req.params.id;
-  if (!ObjectId(req.params.id)){
-    res.status(400).json( 'Must use a valid courseId to find a course.' );
+  } catch (err) {
+    res.status(500).json(err);
   }
- await mongodb
-        .getDb()
-        .db('project341')
-        .collection('modules')
-        .find({_id: value})
-        .toArray((err, result) => {
-        
-          if (err) {
-            res.status(400).json({ message: err });
-          }
-          console.log(result);
-          res.setHeader('Content-Type', 'application/json');
-          res.status(200).json(result[0]);
-          res.send(result[0]);
-      }); 
-    };
+};
 
-const updateCourse = async (req, res, next) => {
-    // #swagger.tags = ['Courses']
-    if (!ObjectId(req.params.id)){
-      res.status(400).json( 'Must use a valid courseId to update a course.');
+const getCourse = (req, res) => {
+      // #swagger.tags = ['Courses']
+  try {
+    const courseId= req.params.courseId;
+    Course.find({ courseId: courseId })
+      .then((data) => {
+        res.status(200).send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || 'Some error occurred while retrieving users.'
+        });
+      });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+const updateCourse = async (req, res) => {
+      // #swagger.tags = ['Courses']
+  try {
+    const courseId= req.params.courseId;
+    if (!courseId) {
+      res.status(400).send({ message: 'Invalid Password Supplied' });
+      return;
     }
-      const courseId = new ObjectId.isValid(req.params.id);
-      const course = {
-      code: req.body.code,
-      name: req.body.name,
-      semester: req.body.semester,
-      year: req.body.year,
-      status: req.body.status
-      };
-      const response = await mongodb
-      .getDb()
-      .db('project341')
-      .collection('modules')
-      .replaceOne({ _id: req.params.id }, course);
-      console.log(response);
-      if (response.modifiedCount > 0) {
-        res.status(204).send();
+    Course.findOne({ courseId: courseId }, function (err, course) {
+      course.code = req.params.code;
+      course.name= req.body.name;
+      course.semester = req.body.semester;;
+      course.year = req.body.year;
+      course.status = req.body.status;
+      course.save(function (err) {
+        if (err) {
+          res.status(500).json(err || 'Some error occurred while updating the course.');
+        } else {
+          res.status(204).send();
+        }
+      });
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+const deleteCourse = async (req, res) => {
+      // #swagger.tags = ['Courses']
+  try {
+    const courseId= req.params.courseId;
+    if (!courseId)  {
+      res.status(400).send({ message: 'Invalid Password Supplied' });
+      return;
+    }
+    Course.deleteOne({ courseId: courseId }, function (err, result) {
+      if (err) {
+        res.status(500).json(err || 'Some error occurred while deleting the course.');
       } else {
-        res.status(500).json(response.error || 'Some error occurred while updating the contact.');
+        res.status(204).send(result);
       }
-    };
-
-  const deleteCourse = async (req, res, next) => {
-    // #swagger.tags = ['Courses']
-    if (!ObjectId(req.params.id)){
-      res.status(400).json( 'Must use a valid courseId to delete a certificate.');
-    }
-    const courseId = new ObjectId.isValid(req.params.id);
-    const response = await mongodb
-    .getDb().db('project341')
-    .collection('modules')
-    .remove({ _id: req.params.id }, true);
-    console.log(response);
-    if (response.deletedCount > 0) {
-      res.status(200).send();
-    } else {
-      res.status(500).json(response.error || 'Some error occurred while deleting the contact.');
-    }
-    };
-
+    });
+  } catch (err) {
+    res.status(500).json(err || 'Some error occurred while deleting the course.');
+  }
+};
  module.exports =  {createCourse, getCourse,getCourses, updateCourse, deleteCourse } 

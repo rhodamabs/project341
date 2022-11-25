@@ -10,8 +10,8 @@ router.get('/:certificateId', certificatesController.getCertificate);
 
 router.post('/', validation.saveCertificate,  certificatesController.createCertificate);
 
-router.put('/:id', validation.saveCertificate, certificatesController.updateCertificate);
+router.put('/:certificateId', validation.saveCertificate, certificatesController.updateCertificate);
 
-router.delete('/:id', certificatesController.deleteCertificate);
+router.delete('/:certificateId', certificatesController.deleteCertificate);
 
 module.exports = router;
