@@ -1,5 +1,4 @@
-
-const db = require('../models/certificates');
+const db = require('../models');
 const Certificate = db.certificate;
 
 
@@ -31,7 +30,7 @@ const createCertificate = (req, res) => {
 
 const getCertificates = (req, res) => {
   try {
-    Certificate .find({})
+    Certificate.find({})
       .then((data) => {
         res.status(200).send(data);
       })
@@ -48,8 +47,14 @@ const getCertificates = (req, res) => {
 const getCertificate = (req, res) => {
   try {
     const certificateId = req.params.certificateId;
-    Certificate .find({ certificateId: certificateId })
+    console.log(req.params.certificateId);
+    if (!certificateId) {
+      res.status(400).send({ message: 'Invalid Certificate id Supplied' });
+      return;
+    }
+    Certificate.findOne({certificateId: certificateId })
       .then((data) => {
+        console.log(data);
         res.status(200).send(data);
       })
       .catch((err) => {
@@ -66,19 +71,22 @@ const updateCertificate = async (req, res) => {
   try {
     const certificateId = req.params.certificateId;
     if (!certificateId) {
-      res.status(400).send({ message: 'Invalid Username Supplied' });
+      res.status(400).send({ message: 'Invalid certificateId Supplied' });
       return;
     }
-    
-    Certificate .findOne({ certificateId: certificateId }, function (err, certificate) {
-      certificate.name = req.params.name;
-      certificate.status = req.body.status;
-      certificate.year = req.body.year;
-      certificate.save(function (err) {
+    Certificate.findOne({ certificateId: certificateId }, function (err, data) {
+      console.log(data);
+      data.name = req.params.name;
+      data.status = req.body.status;
+      data.year = req.body.year;
+      data.displayName = req.body.displayName;
+      data.info = req.body.info;
+      data.profile = req.body.profile;
+      data.save(function (err) {
         if (err) {
           res.status(500).json(err || 'Some error occurred while updating the certificate.');
         } else {
-          res.status(204).send();
+          res.status(204).send(data);
         }
       });
     });
@@ -106,4 +114,4 @@ const deleteCertificate = async (req, res) => {
   }
 };
   
- module.exports =  {createCertificate, getCertificate,getCertificates,updateCertificate,deleteCertificate } 
+ module.exports =  {createCertificate, getCertificates,getCertificate,updateCertificate,deleteCertificate } 

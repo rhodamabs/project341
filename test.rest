@@ -30,18 +30,18 @@ content-type: application/json
 }
 
 ###
-delete http://localhost:5000/courses/63797558f65f57d78b13603b HTTP/1.1
+delete http://localhost:5000/courses/6381263f2be1adafda822719 HTTP/1.1
 
 
 ###
 //Localhost Certificates
-get http://localhost:5000/courses
+get http://localhost:5000/certificates
 ###
-get http://localhost:5000/courses/63797558f65f57d78b13603b HTTP/1.1
+get http://localhost:5000/certificates/63797558f65f57d78b13603b HTTP/1.1
 
 
 ###
-post http://localhost:5000/courses HTTP/1.1
+post http://localhost:5000/certificates HTTP/1.1
 content-type: application/json
 
 {
@@ -51,17 +51,19 @@ content-type: application/json
 }
 ###
 
-put http://localhost:5000/courses HTTP/1.
+put http://localhost:5000/certificates/6381cb911f56e07d802d9f8b HTTP/1.1
 content-type: application/json
 
 {
-   "name" :  "Web and Computer Programming Certificate",
+        "name":"Associate Degree",
         "status":"Completed",
-        "year":"2022"
+        "year":"2021"
 }
+ 
+
 
 ###
-delete http://localhost:5000/courses/63797558f65f57d78b13603b HTTP/1.1
+delete http://localhost:5000/certificates/63797558f65f57d78b13603b HTTP/1.1
 
 ###
 get http://localhost:5000/
@@ -119,7 +121,7 @@ put https://rhodamabs341.onrender.com/certificates/63797571f65f57d78b136045 HTTP
 content-type: application/json
 
 {
-  "name" :  "Web and Computer Programming Certificate",
+         "name" :"Computer Programming Certificate",
         "status":"Completed",
         "year":"2022"
 }

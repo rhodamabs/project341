@@ -1,4 +1,4 @@
-const db = require('../models/courses');
+const db = require('../models');
 const Course = db.course;
 
 const createCourse = async(req, res,) => {
@@ -32,7 +32,7 @@ const createCourse = async(req, res,) => {
 }
 };
 
-const getCourses = getAll = (req, res) => {
+const getCourses = (req, res) => {
       // #swagger.tags = ['Courses']
   try {
     Course.find({})
@@ -53,7 +53,7 @@ const getCourse = (req, res) => {
       // #swagger.tags = ['Courses']
   try {
     const courseId= req.params.courseId;
-    Course.find({ courseId: courseId })
+    Course.findOne({ courseId: courseId })
       .then((data) => {
         res.status(200).send(data);
       })

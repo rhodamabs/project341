@@ -6,11 +6,10 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 // use body-parser to our incoming requests
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
 // routes to handle requests for contacts
 app.use('/', require('./routes'));
-app.use(bodyParser.json())
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.setHeader(

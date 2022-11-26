@@ -24,16 +24,13 @@
           "Courses"
         ],
         "description": "",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -90,9 +87,6 @@
           "Courses"
         ],
         "description": "",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "courseId",
@@ -105,8 +99,8 @@
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -128,9 +122,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "code": {
-                  "example": "any"
-                },
                 "name": {
                   "example": "any"
                 },
@@ -176,8 +167,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "No Content"
           },
           "400": {
             "description": "Bad Request"
@@ -190,27 +181,18 @@
     },
     "/certificates/": {
       "get": {
-        "tags": [
-          "Certificates"
-        ],
         "description": "",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
       "post": {
-        "tags": [
-          "Certificates"
-        ],
         "description": "",
         "parameters": [
           {
@@ -222,10 +204,10 @@
                 "name": {
                   "example": "any"
                 },
-                "year": {
+                "status": {
                   "example": "any"
                 },
-                "status": {
+                "year": {
                   "example": "any"
                 }
               }
@@ -250,13 +232,7 @@
     },
     "/certificates/{certificateId}": {
       "get": {
-        "tags": [
-          "Certificates"
-        ],
         "description": "",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "certificateId",
@@ -271,19 +247,17 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/certificates/{id}": {
+      },
       "put": {
-        "tags": [
-          "Certificates"
-        ],
         "description": "",
         "parameters": [
           {
-            "name": "id",
+            "name": "certificateId",
             "in": "path",
             "required": true,
             "type": "string"
@@ -294,13 +268,19 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
-                  "example": "any"
-                },
                 "status": {
                   "example": "any"
                 },
                 "year": {
+                  "example": "any"
+                },
+                "displayName": {
+                  "example": "any"
+                },
+                "info": {
+                  "example": "any"
+                },
+                "profile": {
                   "example": "any"
                 }
               }
@@ -321,23 +301,22 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/certificates/{certificateId:certificateId}": {
       "delete": {
-        "tags": [
-          "Certificates"
-        ],
         "description": "",
         "parameters": [
           {
-            "name": "id",
+            "name": "certificateId:certificateId",
             "in": "path",
             "required": true,
             "type": "string"
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "No Content"
           },
           "400": {
             "description": "Bad Request"

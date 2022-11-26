@@ -12,6 +12,6 @@ router.post('/', validation.saveCertificate,  certificatesController.createCerti
 
 router.put('/:certificateId', validation.saveCertificate, certificatesController.updateCertificate);
 
-router.delete('/:certificateId', certificatesController.deleteCertificate);
+router.delete('/:certificateId:certificateId', certificatesController.deleteCertificate);
 
 module.exports = router;
