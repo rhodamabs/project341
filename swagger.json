@@ -181,6 +181,9 @@
     },
     "/certificates/": {
       "get": {
+        "tags": [
+          "Certificates"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -193,6 +196,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Certificates"
+        ],
         "description": "",
         "parameters": [
           {
@@ -232,6 +238,9 @@
     },
     "/certificates/{certificateId}": {
       "get": {
+        "tags": [
+          "Certificates"
+        ],
         "description": "",
         "parameters": [
           {
@@ -254,6 +263,9 @@
         }
       },
       "put": {
+        "tags": [
+          "Certificates"
+        ],
         "description": "",
         "parameters": [
           {
@@ -272,15 +284,6 @@
                   "example": "any"
                 },
                 "year": {
-                  "example": "any"
-                },
-                "displayName": {
-                  "example": "any"
-                },
-                "info": {
-                  "example": "any"
-                },
-                "profile": {
                   "example": "any"
                 }
               }
@@ -305,6 +308,9 @@
     },
     "/certificates/{certificateId:certificateId}": {
       "delete": {
+        "tags": [
+          "Certificates"
+        ],
         "description": "",
         "parameters": [
           {

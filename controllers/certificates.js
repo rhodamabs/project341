@@ -4,6 +4,7 @@ const Certificate = db.certificate;
 
 const createCertificate = (req, res) => {
   try {
+      // #swagger.tags = ['Certificates']
     if (!req.body.name || !req.body.status || !req.body.year) {
       res.status(400).send({ message: 'Content can not be empty!' });
       return;
@@ -30,6 +31,7 @@ const createCertificate = (req, res) => {
 
 const getCertificates = (req, res) => {
   try {
+      // #swagger.tags = ['Certificates']
     Certificate.find({})
       .then((data) => {
         res.status(200).send(data);
@@ -46,6 +48,7 @@ const getCertificates = (req, res) => {
 
 const getCertificate = (req, res) => {
   try {
+      // #swagger.tags = ['Certificates']
     const certificateId = req.params.certificateId;
     console.log(req.params.certificateId);
     if (!certificateId) {
@@ -69,7 +72,9 @@ const getCertificate = (req, res) => {
 
 const updateCertificate = async (req, res) => {
   try {
+      // #swagger.tags = ['Certificates']
     const certificateId = req.params.certificateId;
+    
     if (!certificateId) {
       res.status(400).send({ message: 'Invalid certificateId Supplied' });
       return;
@@ -79,9 +84,6 @@ const updateCertificate = async (req, res) => {
       data.name = req.params.name;
       data.status = req.body.status;
       data.year = req.body.year;
-      data.displayName = req.body.displayName;
-      data.info = req.body.info;
-      data.profile = req.body.profile;
       data.save(function (err) {
         if (err) {
           res.status(500).json(err || 'Some error occurred while updating the certificate.');
@@ -97,10 +99,12 @@ const updateCertificate = async (req, res) => {
 
 const deleteCertificate = async (req, res) => {
   try {
+      // #swagger.tags = ['Certificates']
     const certificateId = req.params.certificateId;
     if (!certificateId) {
-      res.status(400).send({ message: 'Invalid certificateId Supplied' });
+      res.status(400).send({ message: 'Invalid certificateId Supplied'});
       return;
+    
     }
     Certificate.deleteOne({ certificateId: certificateId}, function (err, result) {
       if (err) {
@@ -113,5 +117,5 @@ const deleteCertificate = async (req, res) => {
     res.status(500).json(err || 'Some error occurred while deleting the certificate.');
   }
 };
-  
+ 
  module.exports =  {createCertificate, getCertificates,getCertificate,updateCertificate,deleteCertificate } 

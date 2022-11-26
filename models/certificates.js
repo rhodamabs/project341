@@ -7,7 +7,7 @@ const Certificate = (mongoose) => {
             type:String,
          },
          year: {
-            type:String,
+            type:Date,
          }
 });
 return mongoose.model('certificates',certificateSchema);

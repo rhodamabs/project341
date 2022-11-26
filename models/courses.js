@@ -2,23 +2,18 @@ const Course = (mongoose) => {
     const courseSchema = mongoose.Schema({
     code: {
         type:String,
-
     },
         name: {
-            type:String,
-           
+            type:String,    
         },
         semester: {
-            type:String,
-          
+            type:String,      
         },
     year: {
-        type:String,
-        
+        type:Date,   
     },
         status:{
-            type:String,
-            
+            type:String,   
         }
 });
 return mongoose.model('courses', courseSchema);
