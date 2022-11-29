@@ -5,10 +5,10 @@
     "description": "Contacts API",
     "version": "1.0.0"
   },
-  "host": "rhodamabs341.onrender.com",
+  "host": "localhost:5000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/api-docs": {

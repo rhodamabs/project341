@@ -2,25 +2,25 @@ const Course = (mongoose) => {
     const courseSchema = mongoose.Schema({
         code: {
             type:String,
-            required: true, 
+            required: true,
         },
         name: {
-            type:String, 
+            type:String,
             required: true,    
         },
         semester: {
-            type:String,
-            required: true,       
+            type:String, 
+            required: true,     
         },
         year: {
             type:Date,
-            required: true,    
+            required: true,  
         },
         status:{
             type:String,
-            required: true,    
+            required: true,   
         }
 });
-return mongoose.model('Course', courseSchema);
+return mongoose.model('courses', courseSchema);
 };
 module.exports = Course;
